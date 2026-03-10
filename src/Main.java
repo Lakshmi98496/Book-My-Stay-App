@@ -32,3 +32,28 @@ public abstract class Main {
         System.out.println("Price per Night: ₹" + pricePerNight);
     }
 }
+
+
+public class Main {
+
+
+    public static void main(String[] args) {
+
+        // Creating room inventory
+        Room room1 = new Room(1, 200, 2500);
+        Room room2 = new Room(2, 350, 4000);
+        Room room3 = new Room(3, 500, 6000);
+
+        // Centralized inventory (array)
+        Room[] inventory = {room1, room2, room3};
+
+        System.out.println("Hotel Room Inventory");
+        System.out.println("---------------------");
+
+        // Display all room details
+        for (Room room : inventory) {
+            room.displayRoomDetails();
+            System.out.println();
+        }
+    }
+}
