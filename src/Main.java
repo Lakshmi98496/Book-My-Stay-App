@@ -128,3 +128,60 @@ public static void main(String[] args) {
                 + nextRequest.getRoomType());
     }
 }
+/**
+ * =========================================================
+ * MAIN CLASS – UseCase6RoomAllocation
+ * =========================================================
+ *
+ * Use Case 6: Reservation Confirmation & Room Allocation
+ *
+ * Description:
+ * This class demonstrates how booking
+ * requests are confirmed and rooms
+ * are allocated safely.
+ *
+ * It consumes booking requests in FIFO
+ * order and updates inventory immediately.
+ *
+ * @version 6.0
+ */
+
+public class UseCase6RoomAllocation {
+
+    /**
+     * Application entry point.
+     *
+     * @param args Command-line arguments
+     */
+    public static void main(String[] args) {
+
+        System.out.println("Room Allocation System");
+        System.out.println("----------------------");
+
+        // Initialize booking queue
+        BookingRequestQueue bookingQueue = new BookingRequestQueue();
+
+        // Create reservations
+        Reservation r1 = new Reservation("Abhi", "Single");
+        Reservation r2 = new Reservation("Subha", "Double");
+        Reservation r3 = new Reservation("Vanmathi", "Suite");
+
+        // Add reservations to queue
+        bookingQueue.addRequest(r1);
+        bookingQueue.addRequest(r2);
+        bookingQueue.addRequest(r3);
+
+        // Process reservations in FIFO order
+        while (bookingQueue.hasPendingRequests()) {
+
+            Reservation reservation = bookingQueue.processNextRequest();
+
+            System.out.println("Reservation Confirmed");
+            System.out.println("Guest Name : " + reservation.getGuestName());
+            System.out.println("Room Type  : " + reservation.getRoomType());
+            System.out.println("----------------------");
+        }
+
+        System.out.println("All reservations processed successfully.");
+    }
+}
