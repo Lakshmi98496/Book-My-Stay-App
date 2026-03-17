@@ -1,13 +1,64 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+/import java.util.*;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+// CUSTOM EXCEPTION CLASS
+class InvalidBookingException extends Exception {
+
+    public InvalidBookingException(String message) {
+        super(message);
+    }
+}
+
+// VALIDATOR CLASS
+class ReservationValidator {
+
+    public void validate(String guestName, String roomType, int inventory)
+            throws InvalidBookingException {
+
+        if (guestName == null || guestName.trim().isEmpty()) {
+            throw new InvalidBookingException("Guest name cannot be empty.");
+        }
+
+        if (!(roomType.equalsIgnoreCase("Single") ||
+                roomType.equalsIgnoreCase("Double") ||
+                roomType.equalsIgnoreCase("Suite"))) {
+            throw new InvalidBookingException("Invalid room type.");
+        }
+
+        if (inventory <= 0) {
+            throw new InvalidBookingException("Invalid room type selected.");
+        }
+    }
+}
+
+// MAIN CLASS
+public class UseCase9ErrorHandlingValidation {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Simulated inventory
+        int inventory = 1;
+
+        ReservationValidator validator = new ReservationValidator();
+
+        try {
+            System.out.print("Enter guest name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter room type (Single/Double/Suite): ");
+            String roomType = scanner.nextLine();
+
+            // Validate input
+            validator.validate(name, roomType, inventory);
+
+            System.out.println("\nBooking successful!");
+
+        } catch (InvalidBookingException e) {
+            System.out.println("\nBooking failed: " + e.getMessage());
+
+        } finally {
+            scanner.close();
+        }
     }
 }
