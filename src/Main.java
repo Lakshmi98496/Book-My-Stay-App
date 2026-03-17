@@ -1,13 +1,54 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import java.util.*;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+// CLASS 1: BookingHistory
+class BookingHistory {
+
+    private List<String> confirmedReservations;
+
+    // Constructor
+    public BookingHistory() {
+        confirmedReservations = new ArrayList<>();
+    }
+
+    // Add reservation
+    public void addReservation(String reservation) {
+        confirmedReservations.add(reservation);
+    }
+
+    // Get reservations
+    public List<String> getReservations() {
+        return confirmedReservations;
+    }
+}
+
+// CLASS 2: BookingReportService
+class BookingReportService {
+
+    // Generate report
+    public void generateReport(BookingHistory history) {
+
+        System.out.println("\nBooking History and Reporting\n");
+
+        for (String reservation : history.getReservations()) {
+            System.out.println(reservation);
+        }
+    }
+}
+
+// MAIN CLASS
+public class BookingHistoryReport {
+
+    public static void main(String[] args) {
+
+        BookingHistory history = new BookingHistory();
+
+        // Adding reservations
+        history.addReservation("Guest: Adhi, Room Type: Single");
+        history.addReservation("Guest: John, Room Type: Double");
+        history.addReservation("Guest: Vanathi, Room Type: Suite");
+
+        // Generate report
+        BookingReportService reportService = new BookingReportService();
+        reportService.generateReport(history);
     }
 }
